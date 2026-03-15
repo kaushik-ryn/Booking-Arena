@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking system</title>
+</head>
+<body>
+    
+    <div class="home">
+        <div class="nav">
+            <div class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 30px; color: rgb(148, 17, 17);">Book Your Tickets</div>
+   
+            <div class="col">
+                <a href="tktbook.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Home</a>
+                <a href="traintkt.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Train</a>
+                <a href="flight.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Flights</a>
+                  <div class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px; color: black;">Bus</div>
+                   </div>
+            <div class="col">
+            <button class="bt hov">login</button>
+            <button class="bt hov">signup
+            </button>
+            </div>
+
+        </div>
+        <h1></h1>
+        
+        <style>
+            a{
+            text-decoration: none; 
+
+            color: black;
+        }
+            body {
+              margin: 0;
+              font-family: 'Segoe UI', sans-serif;
+              color: white;
+              background-color: whitesmoke;
+            }
+          
+            .container {
+                position: relative;
+                top: 230px;
+              max-width: 1200px;
+              margin: auto;
+              padding: 40px 20px;
+            }
+          
+            h1 {
+              font-size: 32px;
+              margin-bottom: 30px;
+            }
+          
+            .search-box {
+                border-bottom: 4px solid #1d3a83;
+              background-color: white;
+              border-radius: 12px;
+              padding: 24px;
+              color: #000;
+              border-top: 4px solid#0e0d57;
+            }
+          
+            .multi-city {
+              color: #186586;
+              font-weight: 600;
+              margin-bottom: 20px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
+          
+            .form-row {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 20px;
+            }
+          
+            .form-group {
+              flex: 1;
+              min-width: 200px;
+            }
+          
+            .form-group label {
+              font-size: 14px;
+              font-weight: 600;
+              color: #666;
+            }
+          
+            .form-group input,
+            .form-group select {
+              width: 85%;
+              padding: 10px;
+              margin-top: 6px;
+              border: 1px solid #ccc;
+              border-radius: 6px;
+            }
+          
+            .checkbox-row {
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              margin-top: 10px;
+            }
+          
+            .checkbox-row input {
+              margin-right: 8px;
+            }
+          
+            .search-btn {
+              background-color: #9c0a0a;
+              color: white;
+              padding: 12px 24px;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              margin-top: auto;
+              transition: background-color 0.3s ease;
+            }
+          
+            .search-btn:hover {
+              background-color: #9c0a0a;
+            }
+          
+            .results {
+              margin-top: 30px;
+            }
+          
+            .flight-card {
+              background: #ffffff11;
+              border: 1px solid #ffffff22;
+              padding: 20px;
+              border-radius: 10px;
+              margin-bottom: 15px;
+              animation: fadeIn 0.6s ease forwards;
+              opacity: 0;
+              transform: translateY(20px);
+              transition: transform 0.3s ease;
+            }
+          
+            .flight-card:hover {
+              transform: translateY(-5px);
+              background-color: #ffffff22;
+            }
+          
+            @keyframes fadeIn {
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          
+            .flight-card h3 {
+              margin: 0;
+              font-size: 20px;
+            }
+          
+            .flight-info {
+              font-size: 14px;
+              margin-top: 5px;
+            }
+          
+            .price {
+              color: #9c0a0a;
+              font-weight: bold;
+              margin-top: 10px;
+              font-size: 18px;
+            }
+          
+            .airline-logo {
+              height: 30px;
+              margin-right: 8px;
+              vertical-align: middle;
+            }
+            .flight-results {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.flight-card {
+    border-left: 4px solid #9c0a0a;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  padding: 20px;
+  transition: transform 0.2s ease;
+  color: black;
+}
+
+.flight-card:hover {
+  transform: translateY(-4px);
+}
+
+.flight-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.airline-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 150px;
+  color: black;
+}
+
+.airline-info img {
+  width: 70px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.airline-info h4 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.airline-info p {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}
+
+.flight-time h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.flight-time p {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.flight-duration {
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+}
+
+.flight-duration hr {
+  width: 50px;
+  border: 1px dashed #ccc;
+  margin: 4px auto;
+}
+
+.flight-price {
+  text-align: right;
+  min-width: 120px;
+}
+
+.flight-price h3 {
+  font-size: 20px;
+  color: #9c0a0a;
+  margin-bottom: 4px;
+}
+
+.flight-price p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.book-btn {
+  background-color: #9c0a0a;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.book-btn:hover {
+  background-color: #9c0a0a;
+}
+
+.flight-bottom {
+  margin-top: 16px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #444;
+}
+
+          </style>
+          
+       
+          
+        <div class="container">
+          <h1></h1>
+      
+          <div class="search-box">
+            <div class="multi-city">🔁 Create a multi-city route</div>
+      
+            <div class="form-row">
+              <div class="form-group">
+                <label>From</label>
+                <input type="text" id="fromInput" placeholder="Indira Gandhi International ..." />
+                <div class="checkbox-row">
+                  <input type="checkbox" id="fromNearby" />
+                  <label for="fromNearby">Add nearby airports</label>
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <label>To</label>
+                <input type="text" id="toInput" placeholder="Country, city or airport"/>
+                <div class="checkbox-row">
+                  <input type="checkbox" id="toNearby" />
+                  <label for="toNearby">Add nearby airports</label>
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <label>Depart</label>
+                <input type="date" id="departInput"/>
+              </div>
+      
+              <div class="form-group">
+                <label>Return</label>
+                <input type="date" id="returnInput"/>
+              </div>
+      
+              <div class="form-group">
+                <label>Travellers and cabin class</label>
+                <select id="travellerInput">
+                  <option>1 Adult, Economy</option>
+                  <option>2 Adults, Economy</option>
+                  <option>1 Adult, Business</option>
+                </select>
+              </div>
+      
+              <div class="form-group" style="display: flex; align-items: end;">
+                <button class="search-btn" onclick="searchFlights()">Search</button>
+              </div>
+            </div>
+      
+            <div class="checkbox-row" style="margin-top: 16px;">
+              <input type="checkbox" id="directFlights" />
+              <label for="directFlights">Direct flights</label>
+            </div>
+            <div style="margin-top: 20px; background:#1d3a8324 ; padding: 20px; border-radius: 10px; color: black;">
+              <h3>Filters & Sorting</h3>
+              <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                
+                <div>
+                  <label><strong>Airlines:</strong></label><br/>
+                  <input type="checkbox" class="airline-filter" value="IndiGo" checked> IndiGo<br/>
+                  <input type="checkbox" class="airline-filter" value="Air India" checked> Air India<br/>
+                  <input type="checkbox" class="airline-filter" value="Vistara" checked> Vistara
+                </div>
+            
+                <div>
+                  <label for="maxPrice"><strong>Max Price (₹):</strong></label><br/>
+                  <input type="range" id="maxPrice" min="1000" max="10000" value="10000" style="width: 200px;" oninput="document.getElementById('priceDisplay').textContent = this.value">
+                  <span id="priceDisplay">10000</span>
+                </div>
+            
+                <div>
+                  <label for="sortBy"><strong>Sort By:</strong></label><br/>
+                  <select id="sortBy">
+                    <option value="">None</option>
+                    <option value="priceLow">Price: Low to High</option>
+                    <option value="priceHigh">Price: High to Low</option>
+                    <option value="timeEarly">Departure Time: Early to Late</option>
+                    <option value="timeLate">Departure Time: Late to Early</option>
+                  </select>
+                </div>
+            
+              </div>
+            </div>
+            
+          </div>
+      
+          <div class="results" id="results">
+            <div class="flight-results">
+                <div class="flight-card">
+                  <div class="flight-top">
+                    <div class="airline-info">
+                      <img src="https://work4freshers.com/wp-content/uploads/2022/04/Copy-of-Copy-of-Copy-of-Pastel-Abstract-New-Blog-Instagram-Post-7.jpg" alt="Airline Logo" />
+                      <div>
+                        <h4>IndiGo 6E-203</h4>
+                        <p>Non-stop</p>
+                      </div>
+                    </div>
+                    <div class="flight-time">
+                      <h3>06:00</h3>
+                      <p>Delhi (DEL)</p>
+                    </div>
+                    <div class="flight-duration">
+                      <span>2h 10m</span>
+                      <hr />
+                    </div>
+                    <div class="flight-time">
+                      <h3>08:10</h3>
+                      <p>Mumbai (BOM)</p>
+                    </div>
+                    <div class="flight-price">
+                      <h3>₹3,999</h3>
+                      <p>per person</p>
+                      <button class="book-btn">Book</button>
+                    </div>
+                  </div>
+                  <div class="flight-bottom">
+                    <p>Baggage: Cabin 7kg | Check-in 15kg &bull; Free cancellation within 24 hrs</p>
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+        </div>
+      
+      
+        <script>
+          const airlineLogos = {
+            "IndiGo": "https://work4freshers.com/wp-content/uploads/2022/04/Copy-of-Copy-of-Copy-of-Pastel-Abstract-New-Blog-Instagram-Post-7.jpg",
+            "Air India": "https://tse2.mm.bing.net/th/id/OIP.JVEVbhEXLldO_3CTSeQyiQHaEK?w=3840&h=2160&rs=1&pid=ImgDetMain",
+            "Vistara": "https://tse1.mm.bing.net/th/id/OIP.NSj6dbp119bv1WxLEur_UAHaEK?rs=1&pid=ImgDetMain"
+          };
+        
+          const dummyFlights = [
+            {
+              flight: "IndiGo 6E-203",
+              airline: "IndiGo",
+              from: "Delhi",
+              to: "Mumbai",
+              seats: 8,
+              price: 4999,
+              time: "08:00 AM"
+            },
+            {
+              flight: "Air India AI-301",
+              airline: "Air India",
+              from: "Delhi",
+              to: "Mumbai",
+              seats: 4,
+              price: 5799,
+              time: "11:30 AM"
+            },
+            {
+              flight: "Vistara UK-902",
+              airline: "Vistara",
+              from: "Delhi",
+              to: "Mumbai",
+              seats: 6,
+              price: 5499,
+              time: "03:45 PM"
+            }
+          ];
+      function searchFlights() {
+        const from = document.getElementById('fromInput').value.trim().toLowerCase();
+        const to = document.getElementById('toInput').value.trim().toLowerCase();
+        const depart = document.getElementById('departInput').value;
+        const ret = document.getElementById('returnInput').value;
+        const maxPrice = parseInt(document.getElementById('maxPrice').value);
+        const sortBy = document.getElementById('sortBy').value;
+        
+        const airlineCheckboxes = document.querySelectorAll('.airline-filter:checked');
+        const selectedAirlines = Array.from(airlineCheckboxes).map(cb => cb.value);
+      
+        const resultsContainer = document.getElementById('results');
+        resultsContainer.innerHTML = "<h2>Showing flights:</h2>";
+      
+        let filtered = dummyFlights.filter(f =>
+          f.from.toLowerCase().includes(from) &&
+          f.to.toLowerCase().includes(to) &&
+          selectedAirlines.includes(f.airline) &&
+          f.price <= maxPrice
+        );
+      
+        if (sortBy === "priceLow") {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (sortBy === "priceHigh") {
+          filtered.sort((a, b) => b.price - a.price);
+        } else if (sortBy === "timeEarly") {
+          filtered.sort((a, b) => toMinutes(a.time) - toMinutes(b.time));
+        } else if (sortBy === "timeLate") {
+          filtered.sort((a, b) => toMinutes(b.time) - toMinutes(a.time));
+        }
+      
+        if (filtered.length === 0) {
+  resultsContainer.innerHTML += "<p>No flights found for the selected filters.</p>";
+  return;
+}
+
+filtered.forEach((f, index) => {
+  const logo = airlineLogos[f.airline] || "";
+  const card = document.createElement("div");
+  card.className = "flight-card";
+  card.style.animationDelay = `${index * 100}ms`;
+
+  card.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h3>
+          <img src="${logo}" class="airline-logo" alt="${f.airline} logo"/>
+          ${f.flight}
+        </h3>
+        <div class="flight-info">🛫 ${f.from} → ${f.to}</div>
+        <div class="flight-info">📅 Depart: ${depart || "N/A"} | Return: ${ret || "N/A"}</div>
+        <div class="flight-info">🕓 Time: ${f.time}</div>
+        <div class="flight-info">🪑 ${f.seats} seats available</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="price">₹${f.price}</div>
+        <button class="search-btn" style="margin-top: 10px;" onclick='bookFlight(${JSON.stringify(f)})'>Book Now</button>
+      </div>
+    </div>
+  `;
+
+  resultsContainer.appendChild(card);
+});
+
+      }
+      
+      // Utility: convert time like "08:00 AM" to minutes since midnight
+      function toMinutes(timeStr) {
+        const [time, period] = timeStr.split(' ');
+        let [h, m] = time.split(':').map(Number);
+        if (period === "PM" && h !== 12) h += 12;
+        if (period === "AM" && h === 12) h = 0;
+        return h * 60 + m;
+      }
+      
+      
+        
+          function bookFlight(flight) {
+            localStorage.setItem('selectedFlight', JSON.stringify(flight));
+            window.location.href = "Fbooking.html";
+          }
+        </script>
+    <style>
+        *{
+            -ms-overflow-style: none;  /* IE/Edge */
+            scrollbar-width: none;
+            margin: 0;padding: 0;
+        }
+        .nav{
+            height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+   width: 100%;
+
+    margin: auto;
+    background-color: #ffffff;
+        }
+        .home{
+          
+            height: 89vh;
+            min-width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url("https://static1.simpleflyingimages.com/wordpress/wp-content/uploads/2023/07/shutterstock_363163175.jpg");  
+        background-position: bottom center;      }
+
+        .tktbar{
+            display: flex;
+        
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 150px;
+        }
+        .box{
+            border-right: 1px solid rgba(0, 0, 0, 0.323);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 17vw;
+            height:   15vh;
+            background-color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .bt{
+            border: none;
+            color: #ffffff;
+            padding: 15px 30px ;
+            background-color: rgb(183 55 55);
+            border-radius: 1cap;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: medium;
+        }
+        .hov:hover{
+            background-color: rgb(226, 84, 84);
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+
+        }
+        h1{
+            text-wrap: normal;
+            color: rgb(22, 28, 32);
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            position: relative;
+            top: 50px;
+        }
+    </style>
+</body>
+</html>

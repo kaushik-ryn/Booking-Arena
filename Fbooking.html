@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Booking</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .seat {
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 30px;
+      font-size: 12px;
+      transition: transform 0.2s ease;
+    }
+    .available { background-color: #34D399; }
+    .booked { background-color: #F87171; cursor: not-allowed; }
+    .selected { background-color: #FBBF24; transform: scale(1.1); }
+    .seat-row { display: flex; justify-content: center; margin-bottom: 10px; }
+    .seat-map-legend { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
+    .boarding-pass {
+      border: 2px solid #000;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      max-width: 600px;
+      margin: auto;
+      background-color: #f8f8f8;
+    }
+    .boarding-pass p { margin: 5px 0; }
+    .boarding-pass h3 { font-size: 24px; font-weight: bold; text-align: center; }
+    .boarding-pass .details { display: flex; justify-content: space-between; }
+    .boarding-pass .details div { flex: 1; }
+    .boarding-pass .qr-code { text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Flight Info -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Flight Information</h2>
+      <div class="flex items-center justify-between text-gray-700">
+        <div class="text-lg font-semibold">New Delhi (DEL - Indira Gandhi Int'l Airport)</div>
+        <div class="text-gray-500">→</div>
+        <div class="text-lg font-semibold">Mumbai (BOM - Chhatrapati Shivaji Int'l Airport)</div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div>
+          <p><strong>Flight:</strong> SkyExpress 203</p>
+          <p><strong>Departure:</strong> 09:00 AM</p>
+          <p><strong>Boarding:</strong> 08:30 AM</p>
+          <p><strong>Gate:</strong> A12</p>
+        </div>
+        <div>
+          <p><strong>Arrival:</strong> 11:30 AM</p>
+          <p><strong>Date:</strong> 25 April 2025</p>
+          <p><strong>Terminal:</strong> T3</p>
+        </div>
+      </div>
+      <p class="mt-2 text-sm text-gray-600">Free cancellation up to 24 hours before departure. Cabin Baggage: 7kg, Check-in Baggage: 15kg.</p>
+    </div>
+
+    <!-- Passenger Information Form -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Enter Passenger Information</h2>
+      <div id="passengerForm">
+        <div class="flex justify-between mb-4">
+          <input type="text" id="name" placeholder="Name" class="w-1/5 border rounded p-2" required>
+          <input type="number" id="age" placeholder="Age" class="w-1/5 border rounded p-2" required>
+          <select id="gender" class="w-1/5 border rounded p-2">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <button type="button" onclick="addPassenger()" class="bg-blue-500 text-white p-2 rounded">Add Passenger</button>
+        </div>
+      </div>
+      <div id="passengerList"></div>
+    </div>
+
+    <!-- Seat Selection -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Select Your Seat (Max 6)</h2>
+      <div class="seat-map-legend mb-4">
+        <span class="seat available">&nbsp;</span> Available
+        <span class="seat selected">&nbsp;</span> Selected
+        <span class="seat booked">&nbsp;</span> Booked
+      </div>
+      <div id="seat-map"></div>
+      <div class="text-right text-lg mt-4">Total Fare: ₹<span id="totalFare">0</span></div>
+      <button onclick="proceedToTicket()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Proceed</button>
+    </div>
+
+    <!-- Coupon Code -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Apply Coupon</h2>
+      <input type="text" id="couponCode" class="w-full border rounded p-2 mb-2" placeholder="Enter Coupon Code">
+      <button onclick="applyCoupon()" class="bg-green-500 text-white px-4 py-2 rounded">Apply Coupon</button>
+    </div>
+
+    <!-- Ticket Preview and Confirmation -->
+    <div id="ticketPreview" class="hidden bg-white rounded-xl shadow-md p-6">
+      <h2 class="text-xl font-semibold mb-4">Boarding Pass</h2>
+      <div class="boarding-pass">
+        <h3>SkyExpress 203</h3>
+        <div class="details">
+          <div>
+            <p><strong>From:</strong> New Delhi (DEL)</p>
+            <p><strong>To:</strong> Mumbai (BOM)</p>
+            <p><strong>Departure:</strong> 09:00 AM</p>
+            <p><strong>Boarding:</strong> 08:30 AM</p>
+            <p><strong>Gate:</strong> A12</p>
+          </div>
+          <div>
+            <p><strong>Arrival:</strong> 11:30 AM</p>
+            <p><strong>Date:</strong> 25 April 2025</p>
+            <p><strong>Terminal:</strong> T3</p>
+          </div>
+        </div>
+        <p><strong>Seats:</strong> <span id="seatList"></span></p>
+        <p><strong>Total Fare:</strong> ₹<span id="fareFinal"></span></p>
+        <p class="text-sm text-gray-600 mt-2">Cabin: 7kg | Check-in: 15kg</p>
+        <div class="qr-code">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?data=SkyExpress203-DEL-BOM-250425&size=100x100" alt="QR Code" />
+          <p class="text-xs text-gray-500">Scan for boarding info</p>
+        </div>
+      </div>
+      <button onclick="exportToPDF()" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">Export Boarding Pass to PDF</button>
+    </div>
+
+    <!-- Thank You Message -->
+    <div id="thankYouMessage" class="hidden bg-green-500 text-white p-6 rounded-lg text-center mt-6">
+      <h3 class="text-2xl">Thank you for booking with SkyExpress!</h3>
+      <p>Your booking is confirmed. Please check your email for more details.</p>
+    </div>
+
+  </div>
+
+  <script>
+    const seatMap = document.getElementById('seat-map');
+    const maxSeats = 6;
+    const farePerSeat = 1500;
+    let selectedSeats = [];
+    let passengers = [];
+    let couponDiscount = 0;
+
+    function renderSeats() {
+      for (let row = 1; row <= 6; row++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'seat-row';
+        for (let col of ['A','B','C','D']) {
+          const seatId = row + col;
+          const seat = document.createElement('div');
+          seat.className = 'seat available';
+          seat.textContent = seatId;
+          seat.onclick = () => toggleSeat(seatId, seat);
+          rowDiv.appendChild(seat);
+        }
+        seatMap.appendChild(rowDiv);
+      }
+    }
+
+    function toggleSeat(seatId, seatEl) {
+      if (seatEl.classList.contains('booked')) return;
+      if (seatEl.classList.contains('selected')) {
+        seatEl.classList.remove('selected');
+        selectedSeats = selectedSeats.filter(s => s !== seatId);
+      } else {
+        if (selectedSeats.length >= maxSeats) {
+          alert('You can only select up to 6 seats.');
+          return;
+        }
+        seatEl.classList.add('selected');
+        selectedSeats.push(seatId);
+      }
+      document.getElementById('totalFare').textContent = selectedSeats.length * farePerSeat * (1 - couponDiscount);
+    }
+
+    function addPassenger() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const gender = document.getElementById('gender').value;
+      if (name && age) {
+        passengers.push({ name, age, gender });
+        renderPassengerList();
+        document.getElementById('name').value = '';
+        document.getElementById('age').value = '';
+      }
+    }
+
+    function renderPassengerList() {
+      const passengerList = document.getElementById('passengerList');
+      passengerList.innerHTML = '';
+      passengers.forEach((passenger, index) => {
+        const passengerDiv = document.createElement('div');
+        passengerDiv.className = 'flex justify-between mb-2';
+        passengerDiv.innerHTML = `
+          <span>${passenger.name} (${passenger.age}, ${passenger.gender})</span>
+          <button onclick="removePassenger(${index})" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+        `;
+        passengerList.appendChild(passengerDiv);
+      });
+    }
+
+    function removePassenger(index) {
+      passengers.splice(index, 1);
+      renderPassengerList();
+    }
+
+    function applyCoupon() {
+      const couponCode = document.getElementById('couponCode').value;
+      if (couponCode === 'FLIGHT450') {
+        couponDiscount = 0.10;
+        alert('Coupon applied! 10% discount.');
+      } else {
+        alert('Invalid coupon code.');
+      }
+      document.getElementById('totalFare').textContent = selectedSeats.length * farePerSeat * (1 - couponDiscount);
+    }
+
+    function proceedToTicket() {
+      if (selectedSeats.length > 0 && passengers.length > 0) {
+        document.getElementById('ticketPreview').classList.remove('hidden');
+        document.getElementById('seatList').textContent = selectedSeats.join(', ');
+        document.getElementById('fareFinal').textContent = selectedSeats.length * farePerSeat * (1 - couponDiscount);
+      } else {
+        alert('Please select seats and add passengers.');
+      }
+    }
+
+    function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text('Boarding Pass', 10, 10);
+      doc.text('Flight: SkyExpress 203', 10, 20);
+      doc.text('From: New Delhi (DEL)', 10, 30);
+      doc.text('To: Mumbai (BOM)', 10, 40);
+      doc.text(`Seats: ${selectedSeats.join(', ')}`, 10, 50);
+      doc.text(`Total Fare: ₹${selectedSeats.length * farePerSeat * (1 - couponDiscount)}`, 10, 60);
+      doc.save('boarding_pass.pdf');
+      document.getElementById('thankYouMessage').classList.remove('hidden');
+    }
+
+    renderSeats();
+  </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Train Search IRCTC Style</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 30px;
+      background-color: #f5f7fa;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0d47a1;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    select, input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      background-color: #fff;
+      margin-top: 6px;
+    }
+
+    button {
+      background: #0d47a1;
+      color: white;
+      font-weight: bold;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .train-card {
+      background: #fff;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+    }
+
+    .train-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .train-header h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #0d47a1;
+    }
+
+    .train-header span {
+      color: #444;
+      font-size: 15px;
+    }
+
+    .class-tabs {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .class-tab {
+      background: #e3f2fd;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #1565c0;
+      transition: background 0.2s ease;
+    }
+
+    .class-tab:hover {
+      background: #bbdefb;
+    }
+
+    .availability {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .available {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .wl {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    .not-available {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>IRCTC Train Search</h2>
+
+    <div class="form-group">
+      <label>From Station</label>
+      <select id="from">
+        <option value="">Select Departure</option>
+        <option value="NDLS">New Delhi (NDLS)</option>
+        <option value="BSB">Varanasi (BSB)</option>
+        <option value="LKO">Lucknow (LKO)</option>
+        <option value="MUM">Mumbai (CSTM)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>To Station</label>
+      <select id="to">
+        <option value="">Select Destination</option>
+        <option value="NDLS">New Delhi (NDLS)</option>
+        <option value="BSB">Varanasi (BSB)</option>
+        <option value="LKO">Lucknow (LKO)</option>
+        <option value="MUM">Mumbai (CSTM)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Date of Journey</label>
+      <input type="date" id="date">
+    </div>
+
+    <button onclick="searchTrains()">Search Trains</button>
+
+    <div id="results"></div>
+  </div>
+<!-- Same like earlier but with minor update in the script -->
+
+<script>
+  const trainData = [
+    {
+      name: "Shiv Ganga Express",
+      number: "12560",
+      from: "NDLS",
+      to: "BSB",
+      departure: "18:55",
+      classes: {
+        Sleeper: { availability: "Available 22", status: "available", price: 500 },
+        "3AC": { availability: "RAC 10", status: "wl", price: 1200 },
+        "2AC": { availability: "WL 8", status: "wl", price: 1800 }
+      }
+    },
+    {
+      name: "Lucknow Mail",
+      number: "12230",
+      from: "NDLS",
+      to: "LKO",
+      departure: "22:10",
+      classes: {
+        Sleeper: { availability: "Not Available", status: "not-available", price: 450 },
+        "3AC": { availability: "Available 12", status: "available", price: 1100 },
+        "2AC": { availability: "WL 4", status: "wl", price: 1750 }
+      }
+    }
+  ];
+  
+  function searchTrains() {
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    const date = document.getElementById('date').value;
+    const results = document.getElementById('results');
+    results.innerHTML = '';
+  
+    if (!from || !to || !date) {
+      alert("Please fill all fields");
+      return;
+    }
+  
+    const filtered = trainData.filter(t => t.from === from && t.to === to);
+  
+    if (filtered.length === 0) {
+      results.innerHTML = "<p>No trains found for selected route.</p>";
+      return;
+    }
+  
+    filtered.forEach((train, i) => {
+      const trainCard = document.createElement('div');
+      trainCard.className = 'train-card';
+  
+      const header = document.createElement('div');
+      header.className = 'train-header';
+      header.innerHTML = `<h3>${train.name} (${train.number})</h3><span>Dep: ${train.departure}</span>`;
+      trainCard.appendChild(header);
+  
+      const classTabs = document.createElement('div');
+      classTabs.className = 'class-tabs';
+  
+      Object.entries(train.classes).forEach(([cls, data]) => {
+        const tab = document.createElement('div');
+        tab.className = 'class-tab';
+        tab.innerHTML = `${cls}<br>₹${data.price}`;
+        tab.onclick = () => {
+          // Save selection temporarily and redirect to booking page
+          const bookingDetails = {
+            trainName: train.name,
+            trainNumber: train.number,
+            className: cls,
+            price: data.price,
+            availability: data.availability,
+            date: date,
+            from: from,
+            to: to
+          };
+          localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
+          window.location.href = 'booking.html';
+        };
+        classTabs.appendChild(tab);
+      });
+  
+      trainCard.appendChild(classTabs);
+      results.appendChild(trainCard);
+    });
+  }
+  </script>
+  
+</body>
+</html>

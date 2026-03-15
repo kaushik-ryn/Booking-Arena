@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking system</title>
+</head>
+<body>
+
+    
+    <div class="home">
+        <div class="nav">
+            <div class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 30px; color: rgb(148, 17, 17);">Book Your Tickets</div>
+   
+            <div class="col">
+              <a href="tktbook.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Home</a>
+              <a href="traintkt.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Train</a>
+              <a href="flight.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Flights</a>
+ 
+                     <div class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Bus</div>
+                   </div>
+            <div class="col">
+            <button class="bt hov">login</button>
+            <button class="bt hov">signup
+            </button>
+            </div>
+
+        </div>
+        <h1>Train Ticket Booking</h1>
+        <h2 style="    left: -486px;
+        position: relative;
+        top: 110px; display: flex; justify-content: center; align-items: center;"><img width="150px" src="https://logos-world.net/wp-content/uploads/2020/11/IRCTC-Logo.png" alt="">Irctc Authorised Partner</h2>
+        <div class="tktbar">
+            <style>
+      a{
+        text-decoration: none;
+        color: black;
+      }
+
+
+/* Hide the scrollbar visually but keep it functional */
+.results::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+.results {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+.results::-webkit-scrollbar {
+    display: none;             /* Chrome/Safari */
+}
+
+.train {
+    background: #f1f8ff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #007bff;
+}
+
+                body {
+                  font-family: 'Segoe UI', sans-serif;
+                  background: linear-gradient(145deg, #e3f2fd, #ffffff);
+                  color: #333;
+                }
+            
+                .search-container {
+                    top: -130px;
+                    position: relative;
+                  background: #ffffff;
+                  padding: 50px;
+                  border-radius: 18px;
+                  max-width: 720px;
+                  margin: auto;
+                  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+                  left: 20px;
+                }
+            
+                h2 {
+                  text-align: center;
+                  margin-bottom: 30px;
+                  color: #222f56;
+                  font-size: 28px;
+                }
+            
+                .form-group {
+                  display: flex;
+                  flex-direction: column;
+                  margin-bottom: 20px;
+                }
+            
+                label {
+                  font-weight: 600;
+                  margin-bottom: 8px;
+                  font-size: 15px;
+                }
+            
+                select, input[type="date"] {
+                  padding: 12px 14px;
+                  font-size: 16px;
+                  border: 1px solid #bbb;
+                  border-radius: 10px;
+                  transition: all 0.3s ease;
+                  outline: none;
+                  background-color: #f9fafb;
+                }
+            
+                select:focus, input[type="date"]:focus {
+                  border-color: #007bff;
+                  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+                  background-color: #fff;
+                }
+            
+                button {
+                  background: linear-gradient(135deg, #aa4448, #460508);
+                  color: white;
+                  border: none;
+                  padding: 14px;
+                  border-radius: 12px;
+                  font-size: 16px;
+                  font-weight: bold;
+                  cursor: pointer;
+                  width: 100%;
+                  margin-top: 10px;
+                  transition: all 0.3s ease;
+                }
+            
+                button:hover {
+                  background: linear-gradient(135deg, #460508, #aa4448);
+                }
+            
+                
+                .train strong {
+                  display: block;
+                  font-size: 18px;
+                  color: #aa4448;;
+                  margin-bottom: 6px;
+                }
+            
+                .no-results {
+                  text-align: center;
+                  color: #888;
+                  font-style: italic;
+                }
+                .tktbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.results {
+    position: relative;
+    top: -107px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px auto;
+}
+
+/* Hide scrollbar but keep scrolling */
+.results::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+.results {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.results::-webkit-scrollbar {
+    display: none;
+}
+
+.train-card {
+    background: #f1f8ff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #aa4448;;
+}
+
+.train-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #aa4448;;
+    margin-bottom: 12px;
+}
+
+.class-tabs {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.class-tab {
+    background: #e3f2fd;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.class-tab:hover {
+    background: #bbdefb;
+}
+
+              </style>
+            </head>
+            <body>
+            
+              <div   
+               class="search-container">
+                <h2 style="font-size: 27px; color: #aa4448;">Search Your Train</h2>
+            
+                <div class="form-group">
+                  <label for="fromStation">From Station</label>
+                  <select id="fromStation">
+                    <option value="">-- Select Departure Station --</option>
+                    <option value="NDLS">New Delhi (NDLS)</option>
+                    <option value="BSB">Varanasi (BSB)</option>
+                    <option value="LKO">Lucknow (LKO)</option>
+                    <option value="CCU">Kolkata (CCU)</option>
+                    <option value="BPL">Bhopal (BPL)</option>
+                    <option value="MUM">Mumbai (CSTM)</option>
+                    <option value="BLR">Bengaluru (SBC)</option>
+                    <option value="HYD">Hyderabad (SC)</option>
+                    <option value="CHE">Chennai (MAS)</option>
+                    <option value="ASR">Amritsar (ASR)</option>
+                    <option value="PNQ">Pune (PNQ)</option>
+                  </select>
+                </div>
+            
+                <div class="form-group">
+                  <label for="toStation">To Station</label>
+                  <select id="toStation">
+                    <option value="">-- Select Destination Station --</option>
+                    <option value="NDLS">New Delhi (NDLS)</option>
+                    <option value="BSB">Varanasi (BSB)</option>
+                    <option value="LKO">Lucknow (LKO)</option>
+                    <option value="CCU">Kolkata (CCU)</option>
+                    <option value="BPL">Bhopal (BPL)</option>
+                    <option value="MUM">Mumbai (CSTM)</option>
+                    <option value="BLR">Bengaluru (SBC)</option>
+                    <option value="HYD">Hyderabad (SC)</option>
+                    <option value="CHE">Chennai (MAS)</option>
+                    <option value="ASR">Amritsar (ASR)</option>
+                    <option value="PNQ">Pune (PNQ)</option>
+                  </select>
+                </div>
+            
+                <div class="form-group">
+                  <label for="journeyDate">Journey Date</label>
+                  <input type="date" id="journeyDate" />
+                </div>
+            
+                <button style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" onclick="searchTrains()"> Search Trains</button>
+            
+            </div>
+            <div id="results" class="results">
+                <div style="padding: 20px; max-width: 900px; margin: auto;">
+                    <h3 style="color: #0d47a1;">Popular Trains</h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                  
+                      <div style="border: 1px solid #dcdcdc; padding: 20px; border-radius: 10px; background: #f5faff;">
+                        <h4>Shatabdi Express (12002)</h4>
+                        <p><b>From:</b> NDLS ➔ <b>To:</b> BSB</p>
+                        <p><b>Departure:</b> 06:00 AM | <b>Arrival:</b> 02:30 PM</p>
+                        <p><b>Class:</b> Sleeper | <b>Availability:</b> Available 12 | <b>Fare:</b> ₹620</p>
+                      </div>
+                  
+                      <div style="border: 1px solid #dcdcdc; padding: 20px; border-radius: 10px; background: #f5faff;">
+                        <h4>Rajdhani Express (12301)</h4>
+                        <p><b>From:</b> NDLS ➔ <b>To:</b> HWH</p>
+                        <p><b>Departure:</b> 04:30 PM | <b>Arrival:</b> 10:05 AM (next day)</p>
+                        <p><b>Class:</b> 3AC | <b>Availability:</b> Waiting 3 | <b>Fare:</b> ₹1890</p>
+                      </div>
+                  
+                      <div style="border: 1px solid #dcdcdc; padding: 20px; border-radius: 10px; background: #f5faff;">
+                        <h4>Duronto Express (12274)</h4>
+                        <p><b>From:</b> NDLS ➔ <b>To:</b> SC</p>
+                        <p><b>Departure:</b> 11:00 PM | <b>Arrival:</b> 03:50 PM (next day)</p>
+                        <p><b>Class:</b> 2AC | <b>Availability:</b> Available 8 | <b>Fare:</b> ₹2150</p>
+                      </div>
+                  
+                    </div>
+                  </div>
+                  
+            </div>
+            
+            <script>
+                const trainData = [
+                  {
+                    name: "Shiv Ganga Express",
+                    number: "12560",
+                    from: "NDLS",
+                    to: "BSB",
+                    departure: "18:55",
+                    classes: {
+                      Sleeper: { availability: "Available 22", status: "available", price: 500 },
+                      "3AC": { availability: "RAC 10", status: "wl", price: 1200 },
+                      "2AC": { availability: "WL 8", status: "wl", price: 1800 }
+                    }
+                  },
+                  {
+                    name: "Lucknow Mail",
+                    number: "12230",
+                    from: "NDLS",
+                    to: "LKO",
+                    departure: "22:10",
+                    classes: {
+                      Sleeper: { availability: "Not Available", status: "not-available", price: 450 },
+                      "3AC": { availability: "Available 12", status: "available", price: 1100 },
+                      "2AC": { availability: "WL 4", status: "wl", price: 1750 }
+                    }
+                  }
+                ];
+                
+                function searchTrains() {
+                    const from = document.getElementById('fromStation').value;
+const to = document.getElementById('toStation').value;
+const date = document.getElementById('journeyDate').value;
+
+                  const results = document.getElementById('results');
+                  results.innerHTML = '';
+                
+                  if (!from || !to || !date) {
+                    alert("Please fill all fields");
+                    return;
+                  }
+                
+                  const filtered = trainData.filter(t => t.from === from && t.to === to);
+                
+                  if (filtered.length === 0) {
+                    results.innerHTML = "<p>No trains found for selected route.</p>";
+                    return;
+                  }
+                
+                  filtered.forEach((train, i) => {
+                    const trainCard = document.createElement('div');
+                    trainCard.className = 'train-card';
+                
+                    const header = document.createElement('div');
+                    header.className = 'train-header';
+                    header.innerHTML = `<h3>${train.name} (${train.number})</h3><span>Dep: ${train.departure}</span>`;
+                    trainCard.appendChild(header);
+                
+                    const classTabs = document.createElement('div');
+                    classTabs.className = 'class-tabs';
+                
+                    Object.entries(train.classes).forEach(([cls, data]) => {
+                      const tab = document.createElement('div');
+                      tab.className = 'class-tab';
+                      tab.innerHTML = `${cls}<br>₹${data.price}`;
+                      tab.onclick = () => {
+                        // Save selection temporarily and redirect to booking page
+                        const bookingDetails = {
+                          trainName: train.name,
+                          trainNumber: train.number,
+                          className: cls,
+                          price: data.price,
+                          availability: data.availability,
+                          date: date,
+                          from: from,
+                          to: to
+                        };
+                        localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
+                        window.location.href = 'booking.html';
+                      };
+                      classTabs.appendChild(tab);
+                    });
+                
+                    trainCard.appendChild(classTabs);
+                    results.appendChild(trainCard);
+                  });
+                }
+                </script>
+</div>
+
+        </div>
+ 
+
+    <style>
+    
+        *{
+            margin: 0;padding: 0;
+            -ms-overflow-style: none;  /* IE/Edge */
+            scrollbar-width: none;    
+        }
+        .nav{
+            height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+   width: 100%;
+
+    margin: auto;
+    background-color: #ffffff;
+        }
+        .home{
+          
+            height: 75vh;
+            min-width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url("img/train.svg");  
+        background-position:right center;      }
+
+        .tktbar{
+            display: flex;
+        
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 304px;
+        }
+        .box{
+            border-right: 1px solid rgba(0, 0, 0, 0.323);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 17vw;
+            height:   15vh;
+            background-color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .bt{
+            border: none;
+            color: #ffffff;
+            padding: 15px 30px ;
+            background-color: rgb(183 55 55);
+            border-radius: 1cap;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: medium;
+        }
+        .hov:hover{
+            background-color: rgb(226, 84, 84);
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+
+        }
+        h1{
+            text-wrap: normal;
+            color: rgb(255, 255, 255);
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            position: relative;
+            top: 96px;
+            font-size: 49px;
+            left: -437px;
+            
+        }
+    </style>
+</body>
+</html>

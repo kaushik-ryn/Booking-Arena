@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking system</title>
+</head>
+<body>
+    
+    <div class="home">
+        <div class="nav">
+            <div class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 30px; color: rgb(148, 17, 17);">Book Your Tickets</div>
+  
+            <div class="col">
+            <a href="tktbook.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Home</a>
+            <a href="traintkt.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Train</a>
+            <a href="flight.html" class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Flights</a>
+            <div class="nav-ele" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  font-size: 20px;">Bus</div>
+                   </div>
+            <div class="col">
+            <button class="bt hov">login</button>
+            <button class="bt hov">signup
+            </button>
+            </div>
+
+        </div>
+        <h1>India's No. 1 Online Ticket Booking Site</h1>
+        <div class="tktbar">
+            <a style="text-decoration: none; border-start-start-radius: 1.5cap; border-end-start-radius: 1.5cap;" class="box" href="flight.html">
+                <img src="" alt="">
+                Flights
+            </a>
+<a style="text-decoration: none; " class="box" href="traintkt.html">
+    <img src="" alt="">
+    Train
+</a>
+<a style="text-decoration: none; " class="box" href="traintkt.html">
+    <img src="" alt="">
+    Bus
+</a>
+
+<a style="text-decoration: none; border-end-end-radius:1.5cap ; border-start-end-radius: 1.5cap;" class="box" href="traintkt.html">
+    <img src="" alt="">
+    Bus
+</a>
+</div>
+        </div>
+    </div>
+
+    <style>
+        a{
+            text-decoration: none; 
+
+            color: black;
+        }
+        .tktbar a:hover{
+            background-color: rgba(100, 15, 15, 0.604);
+            color: white;
+        }
+        *{
+            margin: 0;padding: 0;
+        }
+        .nav{
+            height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+   width: 100%;
+
+    margin: auto;
+    background-color: #ffffff;
+        }
+        .home{
+          
+            height: 89vh;
+            min-width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url("https://s3.rdbuz.com/images/webplatform/india/Homepage%20header-03%202.webp");  
+        background-position: bottom center;      }
+
+        .tktbar{
+            display: flex;
+        
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 150px;
+        }
+        .box{
+            border-right: 1px solid rgba(0, 0, 0, 0.323);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 17vw;
+            height:   15vh;
+            background-color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .bt{
+            border: none;
+            color: #ffffff;
+            padding: 15px 30px ;
+            background-color: rgb(183 55 55);
+            border-radius: 1cap;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: medium;
+        }
+        .hov:hover{
+            background-color: rgb(226, 84, 84);
+        }
+        .col{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+
+        }
+        h1{
+            text-wrap: normal;
+            color: rgb(22, 28, 32);
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            position: relative;
+            top: 50px;
+        }
+    </style>
+</body>
+</html>

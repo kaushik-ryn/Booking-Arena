@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Train Booking</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+    h2, h3 {
+      text-align: center;
+      color: #0d47a1;
+    }
+    .form-section {
+      margin-bottom: 25px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select {
+      width: 85%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    .passenger-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+      position: relative;
+    }
+    .passenger-card h4 {
+      margin-top: 0;
+    }
+    .inline-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .inline-group > div {
+      flex: 1;
+      min-width: 120px;
+    }
+    .add-btn, .proceed-btn, .delete-btn {
+      background: #0d47a1;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .add-btn {
+      background-color: #1976d2;
+    }
+    .delete-btn {
+      background: crimson;
+      width: auto;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+    .ticket-preview {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .ticket-preview h4 {
+      margin-top: 0;
+    }
+    .payment-methods {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .payment-methods label {
+      flex: 1;
+      background: #f1f1f1;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .payment-methods input {
+      display: none;
+    }
+    .payment-methods input:checked + label {
+      border-color: #1976d2;
+      background: #e3f2fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Train Ticket Booking</h2>
+
+    <div id="trainDetails" class="form-section"></div>
+
+    <div class="form-section">
+      <h3>Passenger Details</h3>
+      <div id="passengerList"></div>
+      <button class="add-btn" onclick="addPassenger()">+ Add Passenger</button>
+    </div>
+
+    <div class="form-section">
+      <h3>Contact Details</h3>
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="text" id="contactMobile" placeholder="Enter mobile number" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="contactEmail" placeholder="Enter email address" />
+      </div>
+    </div>
+
+    <div id="ticketPreview" class="ticket-preview" style="display: none;"></div>
+
+    <button class="proceed-btn" onclick="previewTicket()">Preview Ticket & Proceed</button>
+  </div>
+
+  <script>
+    const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+    const maxPassengers = 6;
+    let passengerCount = 0;
+
+    function initTrainDetails() {
+      if (!bookingDetails) return;
+      document.getElementById("trainDetails").innerHTML = `
+        <p><b>Train:</b> ${bookingDetails.trainName} (${bookingDetails.trainNumber})</p>
+        <p><b>Date:</b> ${bookingDetails.date}</p>
+        <p><b>From:</b> ${bookingDetails.from} ➔ <b>To:</b> ${bookingDetails.to}</p>
+        <p><b>Class:</b> ${bookingDetails.className} | <b>Availability:</b> ${bookingDetails.availability} | <b>Fare:</b> ₹${bookingDetails.price}</p>
+      `;
+    }
+
+    function addPassenger() {
+      if (passengerCount >= maxPassengers) {
+        alert("Maximum 6 passengers allowed.");
+        return;
+      }
+
+      passengerCount++;
+      const container = document.getElementById("passengerList");
+
+      const card = document.createElement("div");
+      card.className = "passenger-card";
+      card.innerHTML = `
+        <h4>Passenger ${passengerCount}</h4>
+        <button class="delete-btn" onclick="removePassenger(this)">Delete</button>
+        <div class="inline-group">
+          <div>
+            <label>Name</label>
+            <input type="text" class="p-name" placeholder="Passenger name" required />
+          </div>
+          <div>
+            <label>Age</label>
+            <input type="number" class="p-age" placeholder="Age" required />
+          </div> 
+          <div>
+            <label>Gender</label>
+            <select class="p-gender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Berth Preference</label>
+            <select class="p-berth">
+              <option>No Preference</option>
+              <option>Lower</option>
+              <option>Middle</option>
+              <option>Upper</option>
+              <option>Side Lower</option>
+              <option>Side Upper</option>
+            </select>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
+    function removePassenger(button) {
+      const card = button.closest(".passenger-card");
+      card.remove();
+      passengerCount--;
+    }
+
+    function previewTicket() {
+      const names = document.querySelectorAll(".p-name");
+      const ages = document.querySelectorAll(".p-age");
+      const genders = document.querySelectorAll(".p-gender");
+      const berths = document.querySelectorAll(".p-berth");
+
+      const mobile = document.getElementById("contactMobile").value;
+      const email = document.getElementById("contactEmail").value;
+
+      if (!mobile || !email) {
+        alert("Enter contact details.");
+        return;
+      }
+
+      if (names.length === 0) {
+        alert("Add at least one passenger.");
+        return;
+      }
+
+      let previewHTML = `<h4>Booking Preview</h4>`;
+      previewHTML += `<p><b>Train:</b> ${bookingDetails.trainName} (${bookingDetails.trainNumber})</p>`;
+      previewHTML += `<p><b>Class:</b> ${bookingDetails.className}</p>`;
+      previewHTML += `<p><b>Travel Date:</b> ${bookingDetails.date}</p>`;
+      previewHTML += `<p><b>Passengers:</b></p><ul>`;
+
+      let totalFare = 0;
+      for (let i = 0; i < names.length; i++) {
+        const name = names[i].value;
+        const age = ages[i].value;
+        const gender = genders[i].value;
+        const berth = berths[i].value;
+
+        if (!name || !age) {
+          alert("Fill all passenger details.");
+          return;
+        }
+
+        totalFare += parseInt(bookingDetails.price);
+        previewHTML += `<li>${name}, ${age} yrs, ${gender}, Berth: ${berth}</li>`;
+      }
+
+      previewHTML += `</ul>`;
+      previewHTML += `<p><b>Contact:</b> ${mobile}, ${email}</p>`;
+      previewHTML += `<p><b>Total Fare:</b> ₹${totalFare}</p>`;
+
+      previewHTML += `<div class="form-group"><label><b>Payment Options</b></label>
+        <div class="payment-methods">
+          <input type="radio" name="payment" id="phonepe" checked><label for="phonepe">PhonePe</label>
+          <input type="radio" name="payment" id="irctc"><label for="irctc">IRCTC Pay</label>
+          <input type="radio" name="payment" id="upi"><label for="upi">UPI</label>
+        </div>
+      </div>`;
+
+      previewHTML += `<button class="proceed-btn" onclick="finalConfirm()">Confirm & Pay</button>`;
+
+      const previewBox = document.getElementById("ticketPreview");
+      previewBox.innerHTML = previewHTML;
+      previewBox.style.display = "block";
+    }
+
+    function finalConfirm() {
+      alert("🎟️ Booking Confirmed!\nThank you for booking with us.");
+      localStorage.removeItem("bookingDetails");
+      window.location.href = "booking.html";
+    }
+
+    window.onload = initTrainDetails;
+  </script>
+</body>
+</html>

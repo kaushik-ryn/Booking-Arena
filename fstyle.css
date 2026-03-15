@@ -1,0 +1,47 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+    background: #f4f6f8;
+  }
+  
+  .search-box input, .search-box button {
+    padding: 10px;
+    margin: 5px;
+  }
+  
+  .results, #ticket-preview {
+    margin-top: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .flight-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 6px;
+  }
+  
+  .seat-map {
+    display: grid;
+    grid-template-columns: repeat(6, 40px);
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .seat {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #ccc;
+  }
+  
+  .seat.available { background: #8bc34a; }
+  .seat.booked { background: #f44336; cursor: not-allowed; }
+  .seat.selected { background: #2196f3; }
+  
